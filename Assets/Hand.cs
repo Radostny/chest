@@ -22,6 +22,13 @@ public class Hand : MonoBehaviour
     }
     private void RearrangeHand()
     {
+        for (int i = 0; i < _cards.Count; i++)
+        {
+            _cards[i].transform.SetParent(transform);
+            _cards[i].transform.position = new Vector3(-_size.x/2 + i * 0.5f, transform.position.y, i * -0.1f);
+            Debug.Log(i * 0.5f);
+        }
+        
         if (_cards.Count == 1)
         {
             _cards[0].transform.SetParent(transform);

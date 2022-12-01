@@ -23,13 +23,16 @@ public class Table : MonoBehaviour
             }
         }
         _cards = Shuffle(_cards);
-        Deal(GetRandomCardFrom(_cards), _hand);
+        DealTo(_hand, 20);
     }
 
-    public void Deal(Card card, Hand hand)  // refactor Hand as an IHand interface, so it could be someone else hand
+    public void DealTo(Hand hand, int cardsAmount = 1)  // refactor Hand as an IHand interface, so it could be someone else hand
     {
-        var randomCard = GetRandomCardFrom(_cards);
-        hand.Add(randomCard);
+        for (int i = 0; i < cardsAmount; i++)
+        {
+            var randomCard = GetRandomCardFrom(_cards);
+            hand.Add(randomCard);
+        }
     }
 
     public List<Card> Shuffle(List<Card> cards)
@@ -54,11 +57,6 @@ public class Table : MonoBehaviour
         return card;
     }
 
-    private void Pick(Card card)
-    {
-        card.transform.Rotate(transform.forward, -15f);
-        card.transform.position += new Vector3(0, 0, -0.1f);
-    }
 
     private void Draw(Card card)
     {
@@ -73,6 +71,11 @@ public class Table : MonoBehaviour
         }
         else
             Debug.Log("Can't get Renderer or Texture");
+    }
+    private void Pick(Card card)
+    {
+        card.transform.Rotate(transform.forward, -15f);
+        card.transform.position += new Vector3(0, 0, -0.1f);
     }
 
 }
