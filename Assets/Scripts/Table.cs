@@ -4,10 +4,9 @@ using UnityEngine;
 
 public class Table : MonoBehaviour
 {
-    [SerializeField]
-    private Card _cardPrefab;
-    [SerializeField]
-    private List<Card> _cards;
+    [SerializeField] private Card _cardPrefab;
+    [SerializeField] private List<Card> _cards;
+    [SerializeField] private Hand _hand;
 
     
     public void Initialize()
@@ -24,7 +23,13 @@ public class Table : MonoBehaviour
             }
         }
         _cards = Shuffle(_cards);
-        var randomCard = GetRandomCard(_cards);
+        Deal(GetRandomCardFrom(_cards), _hand);
+    }
+
+    public void Deal(Card card, Hand hand)  // refactor Hand as an IHand interface, so it could be someone else hand
+    {
+        var randomCard = GetRandomCardFrom(_cards);
+        hand.Add(randomCard);
     }
 
     public List<Card> Shuffle(List<Card> cards)
@@ -39,7 +44,7 @@ public class Table : MonoBehaviour
         return shuffled;
     }
 
-    public Card GetRandomCard(List<Card> cards)
+    public Card GetRandomCardFrom(List<Card> cards)
     {
         int randomIndex = Random.Range(0, cards.Count);
         var card = _cards[randomIndex];
