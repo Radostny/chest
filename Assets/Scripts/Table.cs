@@ -45,7 +45,14 @@ public class Table : MonoBehaviour
         var card = _cards[randomIndex];
         _cards.RemoveAt(randomIndex);
         Draw(card);
+        Pick(card);
         return card;
+    }
+
+    private void Pick(Card card)
+    {
+        card.transform.Rotate(transform.forward, -15f);
+        card.transform.position += new Vector3(0, 0, -0.1f);
     }
 
     private void Draw(Card card)
