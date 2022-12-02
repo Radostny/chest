@@ -53,6 +53,7 @@ public class Table : MonoBehaviour
         var card = _cards[randomIndex];
         _cards.RemoveAt(randomIndex);
         Draw(card);
+        FaceUp(card);
         Pick(card);
         return card;
     }
@@ -72,10 +73,15 @@ public class Table : MonoBehaviour
         else
             Debug.Log("Can't get Renderer or Texture");
     }
+    private void FaceUp(Card card)
+    {
+        card.isFaceup = true;
+        card.transform.Find("BackCover").gameObject.SetActive(false);
+    }
+
     private void Pick(Card card)
     {
         card.transform.Rotate(transform.forward, -15f);
         card.transform.position += new Vector3(0, 0, -0.1f);
     }
-
 }

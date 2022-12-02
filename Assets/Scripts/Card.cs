@@ -17,10 +17,12 @@ public enum Rank
 
 public class Card : MonoBehaviour
 {
-    [field: SerializeField]
-    public Suit Suit { get; private set; }
-    [field: SerializeField]
-    public Rank Rank { get; private set; }
+    [field: SerializeField] public Suit Suit { get; private set; }
+    [field: SerializeField] public Rank Rank { get; private set; }
+    
+    public bool isFaceup = false;
+    
+    
 
     public void AssignSuitAndRank(Suit suit, Rank rank)
     {
