@@ -23,7 +23,7 @@ public class Table : MonoBehaviour
             }
         }
         _cards = Shuffle(_cards);
-        DealTo(_hand, 20);
+        DealTo(_hand, 5);
     }
 
     public void DealTo(Hand hand, int cardsAmount = 1)  // refactor Hand as an IHand interface, so it could be someone else hand
