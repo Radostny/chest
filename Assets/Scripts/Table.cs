@@ -23,7 +23,7 @@ public class Table : MonoBehaviour
             }
         }
         _cards = Shuffle(_cards);
-        DealTo(_hand, 5);
+        DealTo(_hand, 4);
     }
 
     public void DealTo(Hand hand, int cardsAmount = 1)  // refactor Hand as an IHand interface, so it could be someone else hand
@@ -54,7 +54,7 @@ public class Table : MonoBehaviour
         _cards.RemoveAt(randomIndex);
         Draw(card);
         FaceUp(card);
-        Pick(card);
+     //   Pick(card);
         return card;
     }
 
