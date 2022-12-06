@@ -6,14 +6,12 @@ public class Hand : MonoBehaviour
 {
     private Vector3 _size;
     private Renderer _renderer;
-    private MeshCollider _meshColider;
     private List<Card> _cards = new();
     // Start is called before the first frame update
     void Awake()
     {
         _renderer = GetComponentInChildren<Renderer>();
-        _meshColider = GetComponentInChildren<MeshCollider>();
-
+        
         _size = _renderer.bounds.size;
         Debug.Log("width of the Hand is " + _size.x);
         

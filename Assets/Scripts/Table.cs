@@ -7,6 +7,7 @@ public class Table : MonoBehaviour
     [SerializeField] private Card _cardPrefab;
     [SerializeField] private List<Card> _cards;
     [SerializeField] private Hand _hand;
+    [SerializeField] private Hand _player2;
 
     
     public void Initialize()
@@ -24,13 +25,14 @@ public class Table : MonoBehaviour
         }
         _cards = Shuffle(_cards);
         DealTo(_hand, 4);
+        DealTo(_player2, 4, false);
     }
 
-    public void DealTo(Hand hand, int cardsAmount = 1)  // refactor Hand as an IHand interface, so it could be someone else hand
+    public void DealTo(Hand hand, int cardsAmount = 1, bool faceUp = true)  // refactor Hand as an IHand interface, so it could be someone else hand
     {
         for (int i = 0; i < cardsAmount; i++)
         {
-            var randomCard = GetRandomCardFrom(_cards);
+            var randomCard = GetRandomCardFrom(_cards, faceUp);
             hand.Add(randomCard);
         }
     }
@@ -47,14 +49,17 @@ public class Table : MonoBehaviour
         return shuffled;
     }
 
-    public Card GetRandomCardFrom(List<Card> cards)
+    public Card GetRandomCardFrom(List<Card> cards, bool faceUp = true)
     {
         int randomIndex = Random.Range(0, cards.Count);
         var card = _cards[randomIndex];
         _cards.RemoveAt(randomIndex);
         Draw(card);
-        FaceUp(card);
-     //   Pick(card);
+        if (faceUp)
+        {
+            FaceUp(card);
+        }
+        //   Pick(card);
         return card;
     }
 
