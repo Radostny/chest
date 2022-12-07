@@ -9,6 +9,7 @@ public class Game : MonoBehaviour
     [SerializeField] Camera _camera;
     private Ray TouchRay => _camera.ScreenPointToRay(Input.mousePosition);
     private RaycastHit _hit;
+    private Card _prevCard;
 
     void Start()
     {
@@ -17,12 +18,35 @@ public class Game : MonoBehaviour
 
     private void Update()
     {
+        TrackCardTouch();
+    }
+
+    private void TrackCardTouch()
+    {
         Debug.DrawRay(_camera.transform.position, Vector3.forward, Color.yellow);
         if (Physics.Raycast(TouchRay, out _hit))
         {
-            if (_hit.collider.gameObject.GetComponentInParent<Card>())
+            Card currentCard = _hit.collider.gameObject.GetComponentInParent<Card>();
+            if (!currentCard && _prevCard)
             {
-                Debug.Log(_hit.collider.gameObject.GetComponentInParent<Card>().Rank);
+                _table.DropOff(_prevCard);
+            }
+            if (currentCard && currentCard != _prevCard)
+            {
+                _table.PickUp(currentCard);
+                if (_prevCard)
+                {
+                    _table.DropOff(_prevCard);
+                }
+                _prevCard = currentCard;
+            }
+        }
+        else
+        {
+            if (_prevCard)
+            {
+                _table.DropOff(_prevCard);
+                _prevCard = null;
             }
         }
     }

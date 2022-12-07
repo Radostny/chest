@@ -84,9 +84,14 @@ public class Table : MonoBehaviour
         card.transform.Find("BackCover").gameObject.SetActive(false);
     }
 
-    private void Pick(Card card)
+    public void PickUp(Card card)
     {
         card.transform.Rotate(transform.forward, -15f);
         card.transform.position += new Vector3(0, 0, -0.1f);
+    }
+    public void DropOff(Card card)
+    {
+        card.transform.Rotate(transform.forward, 15f);
+        card.transform.position -= new Vector3(0, 0, -0.1f);
     }
 }
